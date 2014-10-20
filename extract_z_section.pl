@@ -1,29 +1,29 @@
 #!/usr/bin/perl -w
 
 #########################################################
-####      extract Z section - Written by:           #### 
+####      extract Z section - Written by:           ####
 ####                 Garrett Bryan                   ####
 ####                 Aug 12, 2012                    ####
 #########################################################
 
 print "
 #############################################################
-  You are using \"Extract Z Section\". Simply use your gcode 
+  You are using \"Extract Z Section\". Simply use your gcode
 file as the single argument. (see example below)
-Usage: change_z_height.pl <directory to frames>
+Usage: change_z_height.pl <gcode_file>
 Example: change_z_height.pl /path/to/interested/file
 
-  extract_z_section.pl allows you to pull a section of gcode 
-that corresponds to a certain Z axis interval. All Z 
-dimensions will be reformated so that the section will print 
-on the printbed. This will allow anyone to pickup a failed 
-print at a specific layer so that the object can be 
+  extract_z_section.pl allows you to pull a section of gcode
+that corresponds to a certain Z axis interval. All Z
+dimensions will be reformated so that the section will print
+on the printbed. This will allow anyone to pickup a failed
+print at a specific layer so that the object can be
 super-glued together.
 #############################################################
 ";
 
 if (!($#ARGV == 0) && ($ARGV[0] =~ m/gcode/) && (-f $original_gcode_file)){
-exit 
+exit
 }
 
 &setvariables;
@@ -134,13 +134,13 @@ sub setvariables(){
 	$verify_body_end = "n";
 	$lower_distance = 0;
 	$upper_distance = 0;
-	
+
 	$lower_distance = &verify("Where should the extracted section start?
 (the format is 0.0, 1.0, 3.25)\n",'^[0-9]+\.[0-9]+$');
 	while ($upper_distance<$lower_distance){
-		$upper_distance = &verify("Where should the extracted section end? 
+		$upper_distance = &verify("Where should the extracted section end?
 If you want the remainder of the object enter
-a value greater than the height of the object.end > start! 
+a value greater than the height of the object.end > start!
 (the format is 10.0, 11.0, 0.0)\n",'^[0-9]+\.[0-9]+$');
 	}
 
